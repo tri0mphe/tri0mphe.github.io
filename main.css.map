@@ -1,7 +1,7 @@
 {
 	"version": 3,
 	"file": "main.css",
-	"sourceRoot": "/home/runner/work/tri0mphe.top/tri0mphe.top",
+	"sourceRoot": "/Users/liukaixuan02/Documents/99资料/myblog/tri0mphe.top",
 	"sources": [
 		"themes/hello-friend-ng/assets/scss/main.scss",
 		"themes/hello-friend-ng/assets/scss/_normalize.scss",
