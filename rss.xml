@@ -1,4 +1,131 @@
-<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Tri0mphe</title><link>https://Tri0mpheL.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.128.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>tri0mphe@qq.com (Tri0mphe)</managingEditor><webMaster>tri0mphe@qq.com (Tri0mphe)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 29 Nov 2024 10:05:33 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://Tri0mpheL.github.io/rss.xml"/><item><title>Creating a New Theme</title><link>https://Tri0mpheL.github.io/posts/creating-a-new-theme/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/creating-a-new-theme/</guid><pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="introduction">Introduction&lt;/h2>
+<?xml version="1.0" encoding="utf-8"?><rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Tri0mphe</title><link>https://Tri0mpheL.github.io/</link><description>MemE 是一个强大且可高度定制的 GoHugo 博客主题，专为个人博客设计。</description><generator>Hugo 0.128.0 https://gohugo.io/</generator><language>zh-CN</language><managingEditor>tri0mphe@qq.com (Tri0mphe)</managingEditor><webMaster>tri0mphe@qq.com (Tri0mphe)</webMaster><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><lastBuildDate>Fri, 11 Apr 2025 09:26:22 +0000</lastBuildDate><atom:link rel="self" type="application/rss+xml" href="https://Tri0mpheL.github.io/rss.xml"/><item><title>Migrate to Hugo from Jekyll</title><link>https://Tri0mpheL.github.io/posts/migrate-from-jekyll/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/migrate-from-jekyll/</guid><pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="move-static-content-to-static">Move static content to &lt;code>static&lt;/code>&lt;/h2>
+&lt;p>Jekyll has a rule that any directory not starting with &lt;code>_&lt;/code> will be copied as-is to the &lt;code>_site&lt;/code> output. Hugo keeps all static content under &lt;code>static&lt;/code>. You should therefore move it all there.
+With Jekyll, something that looked like&lt;/p>
+&lt;pre>&lt;code>▾ &amp;lt;root&amp;gt;/
+▾ static/
+▾ images/
+logo.png
+&lt;/code>&lt;/pre>
+&lt;p>Additionally, you'll want any files that should reside at the root (such as &lt;code>CNAME&lt;/code>) to be moved to &lt;code>static&lt;/code>.&lt;/p>
+&lt;h2 id="create-your-hugo-configuration-file">Create your Hugo configuration file&lt;/h2>
+&lt;p>Hugo can read your configuration as JSON, YAML or TOML. Hugo supports parameters custom configuration too. Refer to the &lt;a href="https://Tri0mpheL.github.io/overview/configuration/">Hugo configuration documentation&lt;/a> for details.&lt;/p>
+&lt;h2 id="set-your-configuration-publish-folder-to-_site">Set your configuration publish folder to &lt;code>_site&lt;/code>&lt;/h2>
+&lt;p>The default is for Jekyll to publish to &lt;code>_site&lt;/code> and for Hugo to publish to &lt;code>public&lt;/code>. If, like me, you have &lt;a href="http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html">&lt;code>_site&lt;/code> mapped to a git submodule on the &lt;code>gh-pages&lt;/code> branch&lt;/a>, you'll want to do one of two alternatives:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>Change your submodule to point to map &lt;code>gh-pages&lt;/code> to public instead of &lt;code>_site&lt;/code> (recommended).&lt;/p>
+&lt;pre>&lt;code> git submodule deinit _site
+git rm _site
+git submodule add -b gh-pages git@github.com:your-username/your-repo.git public
+&lt;/code>&lt;/pre>
+&lt;/li>
+&lt;li>
+&lt;p>Or, change the Hugo configuration to use &lt;code>_site&lt;/code> instead of &lt;code>public&lt;/code>.&lt;/p>
+&lt;pre>&lt;code> {
+..
+&amp;quot;publishdir&amp;quot;: &amp;quot;_site&amp;quot;,
+..
+}
+&lt;/code>&lt;/pre>
+&lt;/li>
+&lt;/ol>
+&lt;h2 id="convert-jekyll-templates-to-hugo-templates">Convert Jekyll templates to Hugo templates&lt;/h2>
+&lt;p>That's the bulk of the work right here. The documentation is your friend. You should refer to &lt;a href="http://jekyllrb.com/docs/templates/">Jekyll's template documentation&lt;/a> if you need to refresh your memory on how you built your blog and &lt;a href="https://Tri0mpheL.github.io/layout/templates/">Hugo's template&lt;/a> to learn Hugo's way.&lt;/p>
+&lt;p>As a single reference data point, converting my templates for &lt;a href="http://heyitsalex.net/">heyitsalex.net&lt;/a> took me no more than a few hours.&lt;/p>
+&lt;h2 id="convert-jekyll-plugins-to-hugo-shortcodes">Convert Jekyll plugins to Hugo shortcodes&lt;/h2>
+&lt;p>Jekyll has &lt;a href="http://jekyllrb.com/docs/plugins/">plugins&lt;/a>; Hugo has &lt;a href="https://Tri0mpheL.github.io/doc/shortcodes/">shortcodes&lt;/a>. It's fairly trivial to do a port.&lt;/p>
+&lt;h3 id="implementation">Implementation&lt;/h3>
+&lt;p>As an example, I was using a custom &lt;a href="https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/_plugins/image_tag.rb">&lt;code>image_tag&lt;/code>&lt;/a> plugin to generate figures with caption when running Jekyll. As I read about shortcodes, I found Hugo had a nice built-in shortcode that does exactly the same thing.&lt;/p>
+&lt;p>Jekyll's plugin:&lt;/p>
+&lt;pre>&lt;code>module Jekyll
+class ImageTag &amp;lt; Liquid::Tag
+@url = nil
+@caption = nil
+@class = nil
+@link = nil
+// Patterns
+IMAGE_URL_WITH_CLASS_AND_CAPTION =
+IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK = /(\w+)(\s+)((https?:\/\/|\/)(\S+))(\s+)&amp;quot;(.*?)&amp;quot;(\s+)-&amp;gt;((https?:\/\/|\/)(\S+))(\s*)/i
+IMAGE_URL_WITH_CAPTION = /((https?:\/\/|\/)(\S+))(\s+)&amp;quot;(.*?)&amp;quot;/i
+IMAGE_URL_WITH_CLASS = /(\w+)(\s+)((https?:\/\/|\/)(\S+))/i
+IMAGE_URL = /((https?:\/\/|\/)(\S+))/i
+def initialize(tag_name, markup, tokens)
+super
+if markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK
+@class = $1
+@url = $3
+@caption = $7
+@link = $9
+elsif markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION
+@class = $1
+@url = $3
+@caption = $7
+elsif markup =~ IMAGE_URL_WITH_CAPTION
+@url = $1
+@caption = $5
+elsif markup =~ IMAGE_URL_WITH_CLASS
+@class = $1
+@url = $3
+elsif markup =~ IMAGE_URL
+@url = $1
+end
+end
+def render(context)
+if @class
+source = &amp;quot;&amp;lt;figure class='#{@class}'&amp;gt;&amp;quot;
+else
+source = &amp;quot;&amp;lt;figure&amp;gt;&amp;quot;
+end
+if @link
+source += &amp;quot;&amp;lt;a href=\&amp;quot;#{@link}\&amp;quot;&amp;gt;&amp;quot;
+end
+source += &amp;quot;&amp;lt;img src=\&amp;quot;#{@url}\&amp;quot;&amp;gt;&amp;quot;
+if @link
+source += &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;
+end
+source += &amp;quot;&amp;lt;figcaption&amp;gt;#{@caption}&amp;lt;/figcaption&amp;gt;&amp;quot; if @caption
+source += &amp;quot;&amp;lt;/figure&amp;gt;&amp;quot;
+source
+end
+end
+end
+Liquid::Template.register_tag('image', Jekyll::ImageTag)
+&lt;/code>&lt;/pre>
+&lt;p>is written as this Hugo shortcode:&lt;/p>
+&lt;pre>&lt;code>&amp;lt;!-- image --&amp;gt;
+&amp;lt;figure {{ with .Get &amp;quot;class&amp;quot; }}class=&amp;quot;{{.}}&amp;quot;{{ end }}&amp;gt;
+{{ with .Get &amp;quot;link&amp;quot;}}&amp;lt;a href=&amp;quot;{{.}}&amp;quot;&amp;gt;{{ end }}
+&amp;lt;img src=&amp;quot;{{ .Get &amp;quot;src&amp;quot; }}&amp;quot; {{ if or (.Get &amp;quot;alt&amp;quot;) (.Get &amp;quot;caption&amp;quot;) }}alt=&amp;quot;{{ with .Get &amp;quot;alt&amp;quot;}}{{.}}{{else}}{{ .Get &amp;quot;caption&amp;quot; }}{{ end }}&amp;quot;{{ end }} /&amp;gt;
+{{ if .Get &amp;quot;link&amp;quot;}}&amp;lt;/a&amp;gt;{{ end }}
+{{ if or (or (.Get &amp;quot;title&amp;quot;) (.Get &amp;quot;caption&amp;quot;)) (.Get &amp;quot;attr&amp;quot;)}}
+&amp;lt;figcaption&amp;gt;{{ if isset .Params &amp;quot;title&amp;quot; }}
+{{ .Get &amp;quot;title&amp;quot; }}{{ end }}
+{{ if or (.Get &amp;quot;caption&amp;quot;) (.Get &amp;quot;attr&amp;quot;)}}&amp;lt;p&amp;gt;
+{{ .Get &amp;quot;caption&amp;quot; }}
+{{ with .Get &amp;quot;attrlink&amp;quot;}}&amp;lt;a href=&amp;quot;{{.}}&amp;quot;&amp;gt; {{ end }}
+{{ .Get &amp;quot;attr&amp;quot; }}
+{{ if .Get &amp;quot;attrlink&amp;quot;}}&amp;lt;/a&amp;gt; {{ end }}
+&amp;lt;/p&amp;gt; {{ end }}
+&amp;lt;/figcaption&amp;gt;
+{{ end }}
+&amp;lt;/figure&amp;gt;
+&amp;lt;!-- image --&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;h3 id="usage">Usage&lt;/h3>
+&lt;p>I simply changed:&lt;/p>
+&lt;pre>&lt;code>{% image full http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg &amp;quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were &amp;quot;having fun&amp;quot; and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&amp;quot; -&amp;gt;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/ %}
+&lt;/code>&lt;/pre>
+&lt;p>to this (this example uses a slightly extended version named &lt;code>fig&lt;/code>, different than the built-in &lt;code>figure&lt;/code>):&lt;/p>
+&lt;pre>&lt;code>{{% fig class=&amp;quot;full&amp;quot; src=&amp;quot;http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg&amp;quot; title=&amp;quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were having fun and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&amp;quot; link=&amp;quot;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/&amp;quot; %}}
+&lt;/code>&lt;/pre>
+&lt;p>As a bonus, the shortcode named parameters are, arguably, more readable.&lt;/p>
+&lt;h2 id="finishing-touches">Finishing touches&lt;/h2>
+&lt;h3 id="fix-content">Fix content&lt;/h3>
+&lt;p>Depending on the amount of customization that was done with each post with Jekyll, this step will require more or less effort. There are no hard and fast rules here except that &lt;code>hugo server --watch&lt;/code> is your friend. Test your changes and fix errors as needed.&lt;/p>
+&lt;h3 id="clean-up">Clean up&lt;/h3>
+&lt;p>You'll want to remove the Jekyll configuration at this point. If you have anything else that isn't used, delete it.&lt;/p>
+&lt;h2 id="a-practical-example-in-a-diff">A practical example in a diff&lt;/h2>
+&lt;p>&lt;a href="http://heyitsalex.net/">Hey, it's Alex&lt;/a> was migrated in less than a &lt;em>father-with-kids day&lt;/em> from Jekyll to Hugo. You can see all the changes (and screw-ups) by looking at this &lt;a href="https://github.com/alexandre-normand/alexandre-normand/compare/869d69435bd2665c3fbf5b5c78d4c22759d7613a...b7f6605b1265e83b4b81495423294208cc74d610">diff&lt;/a>.&lt;/p></description></item><item><title>Creating a New Theme</title><link>https://Tri0mpheL.github.io/posts/creating-a-new-theme/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/creating-a-new-theme/</guid><pubDate>Sun, 28 Sep 2014 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="introduction">Introduction&lt;/h2>
 &lt;p>This tutorial will show you how to create a simple theme in Hugo. I assume that you are familiar with HTML, the bash command line, and that you are comfortable using Markdown to format content. I'll explain how Hugo uses templates and how you can organize your templates to create a theme. I won't cover using CSS to style your theme.&lt;/p>
 &lt;p>We'll start with creating a new site with a very basic template. Then we'll add in a few pages and posts. With small variations on that, you will be able to create many different types of web sites.&lt;/p>
 &lt;p>In this tutorial, commands that you enter will start with the &amp;quot;$&amp;quot; prompt. The output will follow. Lines that start with &amp;quot;#&amp;quot; are comments that I've added to explain a point. When I show updates to a file, the &amp;quot;:wq&amp;quot; on the last line means to save the file.&lt;/p>
@@ -749,134 +876,8 @@ $ vi themes/zafta/layouts/_default/single.html
 :wq
 &lt;/code>&lt;/pre>&lt;p>Note that we removed the date logic from the default template and put it in the post template. Generate the web site and verify the results. Posts have dates and the about page doesn't.&lt;/p>
 &lt;h3 id="dont-repeat-yourself">Don't Repeat Yourself&lt;/h3>
-&lt;p>DRY is a good design goal and Hugo does a great job supporting it. Part of the art of a good template is knowing when to add a new template and when to update an existing one. While you're figuring that out, accept that you'll be doing some refactoring. Hugo makes that easy and fast, so it's okay to delay splitting up a template.&lt;/p></description></item><item><title>Migrate to Hugo from Jekyll</title><link>https://Tri0mpheL.github.io/posts/migrate-from-jekyll/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/migrate-from-jekyll/</guid><pubDate>Mon, 10 Mar 2014 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;h2 id="move-static-content-to-static">Move static content to &lt;code>static&lt;/code>&lt;/h2>
-&lt;p>Jekyll has a rule that any directory not starting with &lt;code>_&lt;/code> will be copied as-is to the &lt;code>_site&lt;/code> output. Hugo keeps all static content under &lt;code>static&lt;/code>. You should therefore move it all there.
-With Jekyll, something that looked like&lt;/p>
-&lt;pre>&lt;code>▾ &amp;lt;root&amp;gt;/
-▾ static/
-▾ images/
-logo.png
-&lt;/code>&lt;/pre>
-&lt;p>Additionally, you'll want any files that should reside at the root (such as &lt;code>CNAME&lt;/code>) to be moved to &lt;code>static&lt;/code>.&lt;/p>
-&lt;h2 id="create-your-hugo-configuration-file">Create your Hugo configuration file&lt;/h2>
-&lt;p>Hugo can read your configuration as JSON, YAML or TOML. Hugo supports parameters custom configuration too. Refer to the &lt;a href="https://Tri0mpheL.github.io/overview/configuration/">Hugo configuration documentation&lt;/a> for details.&lt;/p>
-&lt;h2 id="set-your-configuration-publish-folder-to-_site">Set your configuration publish folder to &lt;code>_site&lt;/code>&lt;/h2>
-&lt;p>The default is for Jekyll to publish to &lt;code>_site&lt;/code> and for Hugo to publish to &lt;code>public&lt;/code>. If, like me, you have &lt;a href="http://blog.blindgaenger.net/generate_github_pages_in_a_submodule.html">&lt;code>_site&lt;/code> mapped to a git submodule on the &lt;code>gh-pages&lt;/code> branch&lt;/a>, you'll want to do one of two alternatives:&lt;/p>
-&lt;ol>
-&lt;li>
-&lt;p>Change your submodule to point to map &lt;code>gh-pages&lt;/code> to public instead of &lt;code>_site&lt;/code> (recommended).&lt;/p>
-&lt;pre>&lt;code> git submodule deinit _site
-git rm _site
-git submodule add -b gh-pages git@github.com:your-username/your-repo.git public
-&lt;/code>&lt;/pre>
-&lt;/li>
-&lt;li>
-&lt;p>Or, change the Hugo configuration to use &lt;code>_site&lt;/code> instead of &lt;code>public&lt;/code>.&lt;/p>
-&lt;pre>&lt;code> {
-..
-&amp;quot;publishdir&amp;quot;: &amp;quot;_site&amp;quot;,
-..
-}
-&lt;/code>&lt;/pre>
-&lt;/li>
-&lt;/ol>
-&lt;h2 id="convert-jekyll-templates-to-hugo-templates">Convert Jekyll templates to Hugo templates&lt;/h2>
-&lt;p>That's the bulk of the work right here. The documentation is your friend. You should refer to &lt;a href="http://jekyllrb.com/docs/templates/">Jekyll's template documentation&lt;/a> if you need to refresh your memory on how you built your blog and &lt;a href="https://Tri0mpheL.github.io/layout/templates/">Hugo's template&lt;/a> to learn Hugo's way.&lt;/p>
-&lt;p>As a single reference data point, converting my templates for &lt;a href="http://heyitsalex.net/">heyitsalex.net&lt;/a> took me no more than a few hours.&lt;/p>
-&lt;h2 id="convert-jekyll-plugins-to-hugo-shortcodes">Convert Jekyll plugins to Hugo shortcodes&lt;/h2>
-&lt;p>Jekyll has &lt;a href="http://jekyllrb.com/docs/plugins/">plugins&lt;/a>; Hugo has &lt;a href="https://Tri0mpheL.github.io/doc/shortcodes/">shortcodes&lt;/a>. It's fairly trivial to do a port.&lt;/p>
-&lt;h3 id="implementation">Implementation&lt;/h3>
-&lt;p>As an example, I was using a custom &lt;a href="https://github.com/alexandre-normand/alexandre-normand/blob/74bb12036a71334fdb7dba84e073382fc06908ec/_plugins/image_tag.rb">&lt;code>image_tag&lt;/code>&lt;/a> plugin to generate figures with caption when running Jekyll. As I read about shortcodes, I found Hugo had a nice built-in shortcode that does exactly the same thing.&lt;/p>
-&lt;p>Jekyll's plugin:&lt;/p>
-&lt;pre>&lt;code>module Jekyll
-class ImageTag &amp;lt; Liquid::Tag
-@url = nil
-@caption = nil
-@class = nil
-@link = nil
-// Patterns
-IMAGE_URL_WITH_CLASS_AND_CAPTION =
-IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK = /(\w+)(\s+)((https?:\/\/|\/)(\S+))(\s+)&amp;quot;(.*?)&amp;quot;(\s+)-&amp;gt;((https?:\/\/|\/)(\S+))(\s*)/i
-IMAGE_URL_WITH_CAPTION = /((https?:\/\/|\/)(\S+))(\s+)&amp;quot;(.*?)&amp;quot;/i
-IMAGE_URL_WITH_CLASS = /(\w+)(\s+)((https?:\/\/|\/)(\S+))/i
-IMAGE_URL = /((https?:\/\/|\/)(\S+))/i
-def initialize(tag_name, markup, tokens)
-super
-if markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION_AND_LINK
-@class = $1
-@url = $3
-@caption = $7
-@link = $9
-elsif markup =~ IMAGE_URL_WITH_CLASS_AND_CAPTION
-@class = $1
-@url = $3
-@caption = $7
-elsif markup =~ IMAGE_URL_WITH_CAPTION
-@url = $1
-@caption = $5
-elsif markup =~ IMAGE_URL_WITH_CLASS
-@class = $1
-@url = $3
-elsif markup =~ IMAGE_URL
-@url = $1
-end
-end
-def render(context)
-if @class
-source = &amp;quot;&amp;lt;figure class='#{@class}'&amp;gt;&amp;quot;
-else
-source = &amp;quot;&amp;lt;figure&amp;gt;&amp;quot;
-end
-if @link
-source += &amp;quot;&amp;lt;a href=\&amp;quot;#{@link}\&amp;quot;&amp;gt;&amp;quot;
-end
-source += &amp;quot;&amp;lt;img src=\&amp;quot;#{@url}\&amp;quot;&amp;gt;&amp;quot;
-if @link
-source += &amp;quot;&amp;lt;/a&amp;gt;&amp;quot;
-end
-source += &amp;quot;&amp;lt;figcaption&amp;gt;#{@caption}&amp;lt;/figcaption&amp;gt;&amp;quot; if @caption
-source += &amp;quot;&amp;lt;/figure&amp;gt;&amp;quot;
-source
-end
-end
-end
-Liquid::Template.register_tag('image', Jekyll::ImageTag)
-&lt;/code>&lt;/pre>
-&lt;p>is written as this Hugo shortcode:&lt;/p>
-&lt;pre>&lt;code>&amp;lt;!-- image --&amp;gt;
-&amp;lt;figure {{ with .Get &amp;quot;class&amp;quot; }}class=&amp;quot;{{.}}&amp;quot;{{ end }}&amp;gt;
-{{ with .Get &amp;quot;link&amp;quot;}}&amp;lt;a href=&amp;quot;{{.}}&amp;quot;&amp;gt;{{ end }}
-&amp;lt;img src=&amp;quot;{{ .Get &amp;quot;src&amp;quot; }}&amp;quot; {{ if or (.Get &amp;quot;alt&amp;quot;) (.Get &amp;quot;caption&amp;quot;) }}alt=&amp;quot;{{ with .Get &amp;quot;alt&amp;quot;}}{{.}}{{else}}{{ .Get &amp;quot;caption&amp;quot; }}{{ end }}&amp;quot;{{ end }} /&amp;gt;
-{{ if .Get &amp;quot;link&amp;quot;}}&amp;lt;/a&amp;gt;{{ end }}
-{{ if or (or (.Get &amp;quot;title&amp;quot;) (.Get &amp;quot;caption&amp;quot;)) (.Get &amp;quot;attr&amp;quot;)}}
-&amp;lt;figcaption&amp;gt;{{ if isset .Params &amp;quot;title&amp;quot; }}
-{{ .Get &amp;quot;title&amp;quot; }}{{ end }}
-{{ if or (.Get &amp;quot;caption&amp;quot;) (.Get &amp;quot;attr&amp;quot;)}}&amp;lt;p&amp;gt;
-{{ .Get &amp;quot;caption&amp;quot; }}
-{{ with .Get &amp;quot;attrlink&amp;quot;}}&amp;lt;a href=&amp;quot;{{.}}&amp;quot;&amp;gt; {{ end }}
-{{ .Get &amp;quot;attr&amp;quot; }}
-{{ if .Get &amp;quot;attrlink&amp;quot;}}&amp;lt;/a&amp;gt; {{ end }}
-&amp;lt;/p&amp;gt; {{ end }}
-&amp;lt;/figcaption&amp;gt;
-{{ end }}
-&amp;lt;/figure&amp;gt;
-&amp;lt;!-- image --&amp;gt;
-&lt;/code>&lt;/pre>
-&lt;h3 id="usage">Usage&lt;/h3>
-&lt;p>I simply changed:&lt;/p>
-&lt;pre>&lt;code>{% image full http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg &amp;quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were &amp;quot;having fun&amp;quot; and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&amp;quot; -&amp;gt;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/ %}
-&lt;/code>&lt;/pre>
-&lt;p>to this (this example uses a slightly extended version named &lt;code>fig&lt;/code>, different than the built-in &lt;code>figure&lt;/code>):&lt;/p>
-&lt;pre>&lt;code>{{% fig class=&amp;quot;full&amp;quot; src=&amp;quot;http://farm5.staticflickr.com/4136/4829260124_57712e570a_o_d.jpg&amp;quot; title=&amp;quot;One of my favorite touristy-type photos. I secretly waited for the good light while we were having fun and took this. Only regret: a stupid pole in the top-left corner of the frame I had to clumsily get rid of at post-processing.&amp;quot; link=&amp;quot;http://www.flickr.com/photos/alexnormand/4829260124/in/set-72157624547713078/&amp;quot; %}}
-&lt;/code>&lt;/pre>
-&lt;p>As a bonus, the shortcode named parameters are, arguably, more readable.&lt;/p>
-&lt;h2 id="finishing-touches">Finishing touches&lt;/h2>
-&lt;h3 id="fix-content">Fix content&lt;/h3>
-&lt;p>Depending on the amount of customization that was done with each post with Jekyll, this step will require more or less effort. There are no hard and fast rules here except that &lt;code>hugo server --watch&lt;/code> is your friend. Test your changes and fix errors as needed.&lt;/p>
-&lt;h3 id="clean-up">Clean up&lt;/h3>
-&lt;p>You'll want to remove the Jekyll configuration at this point. If you have anything else that isn't used, delete it.&lt;/p>
-&lt;h2 id="a-practical-example-in-a-diff">A practical example in a diff&lt;/h2>
-&lt;p>&lt;a href="http://heyitsalex.net/">Hey, it's Alex&lt;/a> was migrated in less than a &lt;em>father-with-kids day&lt;/em> from Jekyll to Hugo. You can see all the changes (and screw-ups) by looking at this &lt;a href="https://github.com/alexandre-normand/alexandre-normand/compare/869d69435bd2665c3fbf5b5c78d4c22759d7613a...b7f6605b1265e83b4b81495423294208cc74d610">diff&lt;/a>.&lt;/p></description></item><item><title>中文图片测试blog333</title><link>https://Tri0mpheL.github.io/posts/%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95blog/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95blog/</guid><pubDate>Mon, 12 Aug 2024 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;div class="highlight">&lt;div class="chroma">
+&lt;p>DRY is a good design goal and Hugo does a great job supporting it. Part of the art of a good template is knowing when to add a new template and when to update an existing one. While you're figuring that out, accept that you'll be doing some refactoring. Hugo makes that easy and fast, so it's okay to delay splitting up a template.&lt;/p></description></item><item><title>中文图片测试blog333</title><link>https://Tri0mpheL.github.io/posts/%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95blog/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/%E4%B8%AD%E6%96%87%E5%9B%BE%E7%89%87%E6%B5%8B%E8%AF%95blog/</guid><pubDate>Mon, 12 Aug 2024 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>测试测试test123213213&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;span class="lnt">2
@@ -892,250 +893,7 @@ Liquid::Template.register_tag('image', Jekyll::ImageTag)
 &lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">&lt;/span>&lt;span class="k">ENTRYPOINT&lt;/span> &lt;span class="p">[&lt;/span>&lt;span class="s2">&amp;#34;/bin/ash&amp;#34;&lt;/span>&lt;span class="p">]&lt;/span>&lt;span class="err">
 &lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
 &lt;/div>
-&lt;/div>&lt;p>&lt;img src="%E5%9B%BE%E7%89%871.png" alt="">&lt;/p></description></item><item><title>(Hu)go Template Primer</title><link>https://Tri0mpheL.github.io/posts/goisforlovers/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/goisforlovers/</guid><pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;p>Hugo uses the excellent &lt;a href="https://golang.org/">Go&lt;/a> &lt;a href="https://golang.org/pkg/html/template/">html/template&lt;/a> library for
-its template engine. It is an extremely lightweight engine that provides a very
-small amount of logic. In our experience that it is just the right amount of
-logic to be able to create a good static website. If you have used other
-template systems from different languages or frameworks you will find a lot of
-similarities in Go templates.&lt;/p>
-&lt;p>This document is a brief primer on using Go templates. The &lt;a href="https://golang.org/pkg/html/template/">Go docs&lt;/a>
-provide more details.&lt;/p>
-&lt;h2 id="introduction-to-go-templates">Introduction to Go Templates&lt;/h2>
-&lt;p>Go templates provide an extremely simple template language. It adheres to the
-belief that only the most basic of logic belongs in the template or view layer.
-One consequence of this simplicity is that Go templates parse very quickly.&lt;/p>
-&lt;p>A unique characteristic of Go templates is they are content aware. Variables and
-content will be sanitized depending on the context of where they are used. More
-details can be found in the &lt;a href="https://golang.org/pkg/html/template/">Go docs&lt;/a>.&lt;/p>
-&lt;h2 id="basic-syntax">Basic Syntax&lt;/h2>
-&lt;p>Golang templates are HTML files with the addition of variables and
-functions.&lt;/p>
-&lt;p>&lt;strong>Go variables and functions are accessible within {{ }}&lt;/strong>&lt;/p>
-&lt;p>Accessing a predefined variable &amp;quot;foo&amp;quot;:&lt;/p>
-&lt;pre>&lt;code>{{ foo }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Parameters are separated using spaces&lt;/strong>&lt;/p>
-&lt;p>Calling the add function with input of 1, 2:&lt;/p>
-&lt;pre>&lt;code>{{ add 1 2 }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Methods and fields are accessed via dot notation&lt;/strong>&lt;/p>
-&lt;p>Accessing the Page Parameter &amp;quot;bar&amp;quot;&lt;/p>
-&lt;pre>&lt;code>{{ .Params.bar }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Parentheses can be used to group items together&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ if or (isset .Params &amp;quot;alt&amp;quot;) (isset .Params &amp;quot;caption&amp;quot;) }} Caption {{ end }}
-&lt;/code>&lt;/pre>
-&lt;h2 id="variables">Variables&lt;/h2>
-&lt;p>Each Go template has a struct (object) made available to it. In hugo each
-template is passed either a page or a node struct depending on which type of
-page you are rendering. More details are available on the
-&lt;a href="https://Tri0mpheL.github.io/layout/variables">variables&lt;/a> page.&lt;/p>
-&lt;p>A variable is accessed by referencing the variable name.&lt;/p>
-&lt;pre>&lt;code>&amp;lt;title&amp;gt;{{ .Title }}&amp;lt;/title&amp;gt;
-&lt;/code>&lt;/pre>
-&lt;p>Variables can also be defined and referenced.&lt;/p>
-&lt;pre>&lt;code>{{ $address := &amp;quot;123 Main St.&amp;quot;}}
-{{ $address }}
-&lt;/code>&lt;/pre>
-&lt;h2 id="functions">Functions&lt;/h2>
-&lt;p>Go template ship with a few functions which provide basic functionality. The Go
-template system also provides a mechanism for applications to extend the
-available functions with their own. &lt;a href="https://Tri0mpheL.github.io/layout/functions">Hugo template
-functions&lt;/a> provide some additional functionality we believe
-are useful for building websites. Functions are called by using their name
-followed by the required parameters separated by spaces. Template
-functions cannot be added without recompiling hugo.&lt;/p>
-&lt;p>&lt;strong>Example:&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ add 1 2 }}
-&lt;/code>&lt;/pre>
-&lt;h2 id="includes">Includes&lt;/h2>
-&lt;p>When including another template you will pass to it the data it will be
-able to access. To pass along the current context please remember to
-include a trailing dot. The templates location will always be starting at
-the /layout/ directory within Hugo.&lt;/p>
-&lt;p>&lt;strong>Example:&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ template &amp;quot;chrome/header.html&amp;quot; . }}
-&lt;/code>&lt;/pre>
-&lt;h2 id="logic">Logic&lt;/h2>
-&lt;p>Go templates provide the most basic iteration and conditional logic.&lt;/p>
-&lt;h3 id="iteration">Iteration&lt;/h3>
-&lt;p>Just like in Go, the Go templates make heavy use of range to iterate over
-a map, array or slice. The following are different examples of how to use
-range.&lt;/p>
-&lt;p>&lt;strong>Example 1: Using Context&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ range array }}
-{{ . }}
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Example 2: Declaring value variable name&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{range $element := array}}
-{{ $element }}
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Example 2: Declaring key and value variable name&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{range $index, $element := array}}
-{{ $index }}
-{{ $element }}
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;h3 id="conditionals">Conditionals&lt;/h3>
-&lt;p>If, else, with, or, &amp;amp; and provide the framework for handling conditional
-logic in Go Templates. Like range, each statement is closed with &lt;code>end&lt;/code>.&lt;/p>
-&lt;p>Go Templates treat the following values as false:&lt;/p>
-&lt;ul>
-&lt;li>false&lt;/li>
-&lt;li>0&lt;/li>
-&lt;li>any array, slice, map, or string of length zero&lt;/li>
-&lt;/ul>
-&lt;p>&lt;strong>Example 1: If&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ if isset .Params &amp;quot;title&amp;quot; }}&amp;lt;h4&amp;gt;{{ index .Params &amp;quot;title&amp;quot; }}&amp;lt;/h4&amp;gt;{{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Example 2: If -&amp;gt; Else&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ if isset .Params &amp;quot;alt&amp;quot; }}
-{{ index .Params &amp;quot;alt&amp;quot; }}
-{{else}}
-{{ index .Params &amp;quot;caption&amp;quot; }}
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Example 3: And &amp;amp; Or&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ if and (or (isset .Params &amp;quot;title&amp;quot;) (isset .Params &amp;quot;caption&amp;quot;)) (isset .Params &amp;quot;attr&amp;quot;)}}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Example 4: With&lt;/strong>&lt;/p>
-&lt;p>An alternative way of writing &amp;quot;if&amp;quot; and then referencing the same value
-is to use &amp;quot;with&amp;quot; instead. With rebinds the context &lt;code>.&lt;/code> within its scope,
-and skips the block if the variable is absent.&lt;/p>
-&lt;p>The first example above could be simplified as:&lt;/p>
-&lt;pre>&lt;code>{{ with .Params.title }}&amp;lt;h4&amp;gt;{{ . }}&amp;lt;/h4&amp;gt;{{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>&lt;strong>Example 5: If -&amp;gt; Else If&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ if isset .Params &amp;quot;alt&amp;quot; }}
-{{ index .Params &amp;quot;alt&amp;quot; }}
-{{ else if isset .Params &amp;quot;caption&amp;quot; }}
-{{ index .Params &amp;quot;caption&amp;quot; }}
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;h2 id="pipes">Pipes&lt;/h2>
-&lt;p>One of the most powerful components of Go templates is the ability to
-stack actions one after another. This is done by using pipes. Borrowed
-from unix pipes, the concept is simple, each pipeline's output becomes the
-input of the following pipe.&lt;/p>
-&lt;p>Because of the very simple syntax of Go templates, the pipe is essential
-to being able to chain together function calls. One limitation of the
-pipes is that they only can work with a single value and that value
-becomes the last parameter of the next pipeline.&lt;/p>
-&lt;p>A few simple examples should help convey how to use the pipe.&lt;/p>
-&lt;p>&lt;strong>Example 1 :&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ if eq 1 1 }} Same {{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>is the same as&lt;/p>
-&lt;pre>&lt;code>{{ eq 1 1 | if }} Same {{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>It does look odd to place the if at the end, but it does provide a good
-illustration of how to use the pipes.&lt;/p>
-&lt;p>&lt;strong>Example 2 :&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ index .Params &amp;quot;disqus_url&amp;quot; | html }}
-&lt;/code>&lt;/pre>
-&lt;p>Access the page parameter called &amp;quot;disqus_url&amp;quot; and escape the HTML.&lt;/p>
-&lt;p>&lt;strong>Example 3 :&lt;/strong>&lt;/p>
-&lt;pre>&lt;code>{{ if or (or (isset .Params &amp;quot;title&amp;quot;) (isset .Params &amp;quot;caption&amp;quot;)) (isset .Params &amp;quot;attr&amp;quot;)}}
-Stuff Here
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>Could be rewritten as&lt;/p>
-&lt;pre>&lt;code>{{ isset .Params &amp;quot;caption&amp;quot; | or isset .Params &amp;quot;title&amp;quot; | or isset .Params &amp;quot;attr&amp;quot; | if }}
-Stuff Here
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;h2 id="context-aka-the-dot">Context (aka. the dot)&lt;/h2>
-&lt;p>The most easily overlooked concept to understand about Go templates is that {{ . }}
-always refers to the current context. In the top level of your template this
-will be the data set made available to it. Inside of a iteration it will have
-the value of the current item. When inside of a loop the context has changed. .
-will no longer refer to the data available to the entire page. If you need to
-access this from within the loop you will likely want to set it to a variable
-instead of depending on the context.&lt;/p>
-&lt;p>&lt;strong>Example:&lt;/strong>&lt;/p>
-&lt;pre>&lt;code> {{ $title := .Site.Title }}
-{{ range .Params.tags }}
-&amp;lt;li&amp;gt; &amp;lt;a href=&amp;quot;{{ $baseurl }}/tags/{{ . | urlize }}&amp;quot;&amp;gt;{{ . }}&amp;lt;/a&amp;gt; - {{ $title }} &amp;lt;/li&amp;gt;
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;p>Notice how once we have entered the loop the value of {{ . }} has changed. We
-have defined a variable outside of the loop so we have access to it from within
-the loop.&lt;/p>
-&lt;h1 id="hugo-parameters">Hugo Parameters&lt;/h1>
-&lt;p>Hugo provides the option of passing values to the template language
-through the site configuration (for sitewide values), or through the meta
-data of each specific piece of content. You can define any values of any
-type (supported by your front matter/config format) and use them however
-you want to inside of your templates.&lt;/p>
-&lt;h2 id="using-content-page-parameters">Using Content (page) Parameters&lt;/h2>
-&lt;p>In each piece of content you can provide variables to be used by the
-templates. This happens in the &lt;a href="https://Tri0mpheL.github.io/content/front-matter">front matter&lt;/a>.&lt;/p>
-&lt;p>An example of this is used in this documentation site. Most of the pages
-benefit from having the table of contents provided. Sometimes the TOC just
-doesn't make a lot of sense. We've defined a variable in our front matter
-of some pages to turn off the TOC from being displayed.&lt;/p>
-&lt;p>Here is the example front matter:&lt;/p>
-&lt;pre tabindex="0">&lt;code>---
-title: &amp;#34;Permalinks&amp;#34;
-date: &amp;#34;2013-11-18&amp;#34;
-aliases:
-- &amp;#34;/doc/permalinks/&amp;#34;
-groups: [&amp;#34;extras&amp;#34;]
-groups_weight: 30
-notoc: true
----
-&lt;/code>&lt;/pre>&lt;p>Here is the corresponding code inside of the template:&lt;/p>
-&lt;pre>&lt;code> {{ if not .Params.notoc }}
-&amp;lt;div id=&amp;quot;toc&amp;quot; class=&amp;quot;well col-md-4 col-sm-6&amp;quot;&amp;gt;
-{{ .TableOfContents }}
-&amp;lt;/div&amp;gt;
-{{ end }}
-&lt;/code>&lt;/pre>
-&lt;h2 id="using-site-config-parameters">Using Site (config) Parameters&lt;/h2>
-&lt;p>In your top-level configuration file (eg, &lt;code>config.yaml&lt;/code>) you can define site
-parameters, which are values which will be available to you in chrome.&lt;/p>
-&lt;p>For instance, you might declare:&lt;/p>
-&lt;div class="highlight">&lt;div class="chroma">
-&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
-&lt;/span>&lt;span class="lnt">2
-&lt;/span>&lt;span class="lnt">3
-&lt;/span>&lt;span class="lnt">4
-&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
-&lt;td class="lntd">
-&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">params&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">CopyrightHTML&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;Copyright &amp;amp;#xA9; 2013 John Doe. All Rights Reserved.&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">TwitterUser&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="s2">&amp;#34;spf13&amp;#34;&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">SidebarRecentLimit&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="m">5&lt;/span>&lt;span class="w">
-&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
-&lt;/div>
-&lt;/div>&lt;p>Within a footer layout, you might then declare a &lt;code>&amp;lt;footer&amp;gt;&lt;/code> which is only
-provided if the &lt;code>CopyrightHTML&lt;/code> parameter is provided, and if it is given,
-you would declare it to be HTML-safe, so that the HTML entity is not escaped
-again. This would let you easily update just your top-level config file each
-January 1st, instead of hunting through your templates.&lt;/p>
-&lt;pre tabindex="0">&lt;code>{{if .Site.Params.CopyrightHTML}}&amp;lt;footer&amp;gt;
-&amp;lt;div class=&amp;#34;text-center&amp;#34;&amp;gt;{{.Site.Params.CopyrightHTML | safeHtml}}&amp;lt;/div&amp;gt;
-&amp;lt;/footer&amp;gt;{{end}}
-&lt;/code>&lt;/pre>&lt;p>An alternative way of writing the &amp;quot;if&amp;quot; and then referencing the same value
-is to use &amp;quot;with&amp;quot; instead. With rebinds the context &lt;code>.&lt;/code> within its scope,
-and skips the block if the variable is absent:&lt;/p>
-&lt;pre tabindex="0">&lt;code>{{with .Site.Params.TwitterUser}}&amp;lt;span class=&amp;#34;twitter&amp;#34;&amp;gt;
-&amp;lt;a href=&amp;#34;https://twitter.com/{{.}}&amp;#34; rel=&amp;#34;author&amp;#34;&amp;gt;
-&amp;lt;img src=&amp;#34;/images/twitter.png&amp;#34; width=&amp;#34;48&amp;#34; height=&amp;#34;48&amp;#34; title=&amp;#34;Twitter: {{.}}&amp;#34;
-alt=&amp;#34;Twitter&amp;#34;&amp;gt;&amp;lt;/a&amp;gt;
-&amp;lt;/span&amp;gt;{{end}}
-&lt;/code>&lt;/pre>&lt;p>Finally, if you want to pull &amp;quot;magic constants&amp;quot; out of your layouts, you can do
-so, such as in this example:&lt;/p>
-&lt;pre tabindex="0">&lt;code>&amp;lt;nav class=&amp;#34;recent&amp;#34;&amp;gt;
-&amp;lt;h1&amp;gt;Recent Posts&amp;lt;/h1&amp;gt;
-&amp;lt;ul&amp;gt;{{range first .Site.Params.SidebarRecentLimit .Site.Recent}}
-&amp;lt;li&amp;gt;&amp;lt;a href=&amp;#34;{{.RelPermalink}}&amp;#34;&amp;gt;{{.Title}}&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;
-{{end}}&amp;lt;/ul&amp;gt;
-&amp;lt;/nav&amp;gt;
-&lt;/code>&lt;/pre></description><category domain="https://Tri0mpheL.github.io/categories/development/">Development</category><category domain="https://Tri0mpheL.github.io/categories/golang/">golang</category><category domain="https://Tri0mpheL.github.io/tags/go/">go</category><category domain="https://Tri0mpheL.github.io/tags/golang/">golang</category><category domain="https://Tri0mpheL.github.io/tags/templates/">templates</category><category domain="https://Tri0mpheL.github.io/tags/themes/">themes</category><category domain="https://Tri0mpheL.github.io/tags/development/">development</category></item><item><title>test1111</title><link>https://Tri0mpheL.github.io/posts/my-first-blog/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/my-first-blog/</guid><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;div class="highlight">&lt;div class="chroma">
+&lt;/div>&lt;p>&lt;img src="%E5%9B%BE%E7%89%871.png" alt="">&lt;/p></description></item><item><title>test1111</title><link>https://Tri0mpheL.github.io/posts/my-first-blog/</link><guid isPermaLink="true">https://Tri0mpheL.github.io/posts/my-first-blog/</guid><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>tri0mphe@qq.com (Tri0mphe)</author><copyright>[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh)</copyright><description>&lt;div class="highlight">&lt;div class="chroma">
 &lt;table class="lntable">&lt;tr>&lt;td class="lntd">
 &lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
 &lt;/span>&lt;span class="lnt">2
